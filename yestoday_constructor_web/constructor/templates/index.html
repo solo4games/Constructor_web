@@ -1,0 +1,606 @@
+{# Load the tag library #}
+{% load django_bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+<div class="preloader">
+    <div class="preloader__row">
+        <div class="preloader__item"></div>
+        <div class="preloader__item"></div>
+    </div>
+</div>
+<style>
+    .preloader {
+        /*фиксированное позиционирование*/
+        position: fixed;
+        /* координаты положения */
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        /* фоновый цвет элемента */
+        background: #e0e0e0;
+        /* размещаем блок над всеми элементами на странице (это значение должно быть больше, чем у любого другого позиционированного элемента на странице) */
+        z-index: 1001;
+    }
+
+    .preloader__row {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        width: 70px;
+        height: 70px;
+        margin-top: -35px;
+        margin-left: -35px;
+        text-align: center;
+        animation: preloader-rotate 2s infinite linear;
+    }
+
+    .preloader__item {
+        position: absolute;
+        display: inline-block;
+        top: 0;
+        background-color: #337ab7;
+        border-radius: 100%;
+        width: 35px;
+        height: 35px;
+        animation: preloader-bounce 2s infinite ease-in-out;
+    }
+
+    .preloader__item:last-child {
+        top: auto;
+        bottom: 0;
+        animation-delay: -1s;
+    }
+
+    @keyframes preloader-rotate {
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes preloader-bounce {
+
+        0%,
+        100% {
+            transform: scale(0);
+        }
+
+        50% {
+            transform: scale(1);
+        }
+    }
+
+    .loaded_hiding .preloader {
+        transition: 0.3s opacity;
+        opacity: 0;
+    }
+
+    .loaded .preloader {
+        display: none;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
+                aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarExample01">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" aria-current="page" href="/">Главная</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+{% load static %}
+<style>
+    .w100 {
+        width: 100%;
+    }
+
+    textarea::placeholder {
+        white-space: pre-wrap;
+    }
+</style>
+
+<div class="container galeryID">
+    <div class="row">
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">Номер галереи:</span>
+            <input type="text" class="form-control" placeholder="Введите номер галереи" aria-label="galeryID"
+                aria-describedby="basic-addon1" id="galeryID" />
+        </div>
+        <div class="row px-5">
+            <button type="button" class="my-1 btn btn-primary" onclick="showMain()">Добавить</button>
+        </div>
+    </div>
+</div>
+
+<div class="container mainContainer" hidden>
+    <h1 class="px-3">Блоки</h1>
+    <div class="row">
+        <div class="col-9">
+            <div class="row">
+                <div class="col">
+                    <img src="{% static 'constructor/audio.png' %}" class="p-2 w100" alt="Аудио"
+                        onclick="changeQuiz('audio')">
+                </div>
+                <div class="col">
+                    <img src="{% static 'constructor/cards.png' %}" class="p-2 w100" alt="Карточки"
+                        onclick="changeQuiz('cards')">
+                </div>
+                <div class="col">
+                    <img src="{% static 'constructor/quiz1.png' %}" class="p-2 w100" alt="Квиз 1"
+                        onclick="changeQuiz('quiz1')">
+                </div>
+                <div class="col">
+                    <img src="{% static 'constructor/quiz2.png' %}" class="p-2 w100" alt="Квиз 2"
+                        onclick="changeQuiz('quiz2')">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <img src="{% static 'constructor/quiz3.png' %}" class="p-2 w100" alt="Квиз 3"
+                        onclick="changeQuiz('quiz3')">
+                </div>
+                <div class="col">
+                    <img src="{% static 'constructor/quiz4.png' %}" class="p-2 w100" alt="Квиз 4"
+                        onclick="changeQuiz('quiz4')">
+                </div>
+                <div class="col">
+                    <img src="{% static 'constructor/quiz5.png' %}" class="p-2 w100" alt="Квиз 5"
+                        onclick="changeQuiz('quiz5')">
+                </div>
+                <div class="col">
+                    <img src="{% static 'constructor/quiz6.png' %}" class="p-2 w100" alt="Квиз 6"
+                        onclick="changeQuiz('quiz6')">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <img src="{% static 'constructor/quiz7.png' %}" class="p-2 w100" alt="Квиз 7"
+                        onclick="changeQuiz('quiz7')">
+                </div>
+                <div class="col">
+                    <img src="{% static 'constructor/quiz8.png' %}" class="p-2 w100" alt="Квиз 8"
+                        onclick="changeQuiz('quiz8')">
+                </div>
+                <div class="col">
+                    <img src="{% static 'constructor/quiz9.png' %}" class="p-2 w100" alt="Квиз 9"
+                        onclick="changeQuiz('quiz9')">
+                </div>
+                <div class="col">
+                    <img src="{% static 'constructor/quizDialog.png' %}" class="p-2 w100" alt="Диалог"
+                        onclick="changeQuiz('quizDialog')">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <img src="{% static 'constructor/quizOrder.png' %}" class="p-2 w100" alt="Список перетаскиваемый"
+                        onclick="changeQuiz('quizOrder')">
+                </div>
+                <div class="col">
+                    <img src="{% static 'constructor/quizphoto.png' %}" class="p-2 w100" alt="Фото"
+                        onclick="changeQuiz('quizphoto')">
+                </div>
+                <div class="col">
+                    <img src="{% static 'constructor/quiztable.png' %}" class="p-2 w100" alt="3 колонки"
+                        onclick="changeQuiz('quiztable')">
+                </div>
+                <div class="col">
+                    <img src="{% static 'constructor/tts.png' %}" class="p-2 w100" alt="Текст в речь"
+                        onclick="changeQuiz('audio_tts')">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <img src="{% static 'constructor/video.png' %}" class="p-2 w100" alt="Видео"
+                        onclick="changeQuiz('video')">
+                </div>
+                <div class="col">
+                    <img src="{% static 'constructor/translate.png' %}" class="p-2 w100" alt="Перевод"
+                        onclick="changeQuiz('translate')">
+                </div>
+                <div class="col">
+                    <img src="{% static 'constructor/stt.png' %}" class="p-2 w100" alt="Распознование голоса"
+                        onclick="changeQuiz('stt')">
+                </div>
+                <div class="col">
+                    <img src="{% static 'constructor/translateNew.png' %}" class="p-2 w100" alt=""
+                        onclick="changeQuiz('translateNew')">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <img src="{% static 'constructor/textAudio.png' %}" class="p-2 w100" alt=""
+                        onclick="changeQuiz('textAudio')">
+                </div>
+                <div class="col">
+                    <img src="{% static 'constructor/dropdownQuiz.png' %}" class="p-2 w100" alt=""
+                        onclick="changeQuiz('dropdownQuiz')">
+                </div>
+                <div class="col">
+                    <!-- <img src="{% static 'constructor/textAudio.png' %}" class="p-2 w100" alt=""
+                        onclick="changeQuiz('textAudio')"> -->
+                </div>
+                <div class="col">
+                    <!-- <img src="{% static 'constructor/textAudio.png' %}" class="p-2 w100" alt=""
+                        onclick="changeQuiz('textAudio')"> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <ul class="quizList"></ul>
+        </div>
+    </div>
+    <h1 class="px-3">Готовые решения</h1>
+    <div class="row">
+        <div class="col-9">
+            <div class="row">
+                <div class="col">
+                    <button class="p-2 btn btn-success" onclick="changeQuiz('audioQuiz5')">Аудиопрактика (ТТС + Квиз
+                        5)</button>
+                </div>
+                <div class="col">
+                    <!-- <img src="{% static 'constructor/cards.png' %}" class="p-2 w100" alt="Карточки"
+                        onclick="changeQuiz('cards')"> -->
+                </div>
+                <div class="col">
+                    <!-- <img src="{% static 'constructor/quiz1.png' %}" class="p-2 w100" alt="Квиз 1"
+                        onclick="changeQuiz('quiz1')"> -->
+                </div>
+                <div class="col">
+                    <!-- <img src="{% static 'constructor/quiz2.png' %}" class="p-2 w100" alt="Квиз 2"
+                        onclick="changeQuiz('quiz2')"> -->
+                </div>
+            </div>
+
+        </div>
+        <div class="col-3">
+
+        </div>
+    </div>
+    <div class="row text-center">
+        <h3 class="currentQuiz" quiz=""></h3>
+    </div>
+    <div class="row my-3">
+        <textarea name="" id='' cols="30" rows="10" class="quizInput"></textarea>
+    </div>
+    <div class="row px-5">
+        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="addQuiz()">Добавить</button>
+    </div>
+
+    <div class="col d-flex justify-content-center ">
+        <div class="form-check mt-3">
+            <h5>
+                <input class="form-check-input" type="checkbox" value="" id="ifNextBtn" checked />
+                <label class="form-check-label" for="ifNextBtn">Убрать кнопку далее</label>
+            </h5>
+        </div>
+    </div>
+
+    <div class="row my-5 px-5">
+        <div class="col px-5">
+            <button type="button" class="btn btn-primary btn-lg btn-block w100" onclick="nextSlide()">Следующий
+                слайд</button>
+        </div>
+        <div class="col px-5">
+            <button type="button" class="btn btn-primary btn-lg btn-block w100" onclick="end()">Закончить</button>
+        </div>
+    </div>
+
+</div>
+<div class="container" hidden>
+    <div class="row my-3">
+        <textarea name="result" id="" cols="30" rows="10" class="quizOut" disabled></textarea>
+    </div>
+    <div class="row my-3">
+        <div class="col-6">
+            <button type="button" class="btn btn-primary btn-block w100"
+                onclick="document.location.reload()">Перезагрузить</button>
+        </div>
+        <div class="col-6">
+            <button type="button" class="btn btn-primary btn-block w100" onclick="copy()">Скопировать</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.onload = function () {
+        document.body.classList.add('loaded_hiding');
+        window.setTimeout(function () {
+            document.body.classList.add('loaded');
+            document.body.classList.remove('loaded_hiding');
+        }, 500);
+    }
+</script>
+
+<script>
+    const dict = {
+        audio: {
+            name: "Аудио",
+            placeholder: `Текст сверху \nТекст снизу \nСсылка \n0 (убрать шкалу времени) 1 (оставить)`
+        },
+        cards: {
+            name: "Карточки",
+            placeholder: "Text;Текст;Ссылка на фотку\nText;Текст;Ссылка на фотку"
+        },
+        quiz1: {
+            name: "Квиз 1",
+            placeholder: "Some luxury bed companies conduct sleep surveys for feedback on how to get a good night's sleep – *bed tester*\nTo be a *dog surfer instructor* you need to be good at surfing yourself and also you have to be pet friendly\nThe job role itself is a simple one just get the balls out of the water into baskets— *golf ball diver*"
+        },
+        quiz2: {
+            name: "Квиз 2",
+            placeholder: "*Верно*\nНеверно Неизвестно"
+        },
+        quiz3: {
+            name: "Квиз 3",
+            placeholder: "Просто слова через пробел"
+        },
+        quiz4: {
+            name: "Квиз 4",
+            placeholder: "Текст текст *ответ* текст\nТекст *ответ* текст"
+        },
+        quiz5: {
+            name: "Квиз 5",
+            placeholder: "Просто текст через пробел (правильный)\n1 - Показывать слова, 0 - Нет"
+        },
+        quiz6: {
+            name: "Квиз 6",
+            placeholder: "Слово\nПеревод"
+        },
+        quiz7: {
+            name: "Квиз 7",
+            placeholder: "Текст слева *Верно*\nНеверно Неизвестно"
+        },
+        quiz8: {
+            name: "Квиз 8",
+            placeholder: "There ...is... a bank near my house.\nThere ...are... 3 parks in my city.\nThere ...is... not an airport in my city."
+        },
+        quiz9: {
+            name: "Квиз 9",
+            placeholder: "1 (просто текст), 2 (с обводкой)\nПояснение (можно оставить пустым)\nТекст1 *\nТекст2\nТекст3\nТекст4\nТекст5"
+        },
+        quizDialog: {
+            name: "Диалог",
+            placeholder: "Пока не работает"
+        },
+        quizOrder: {
+            name: "Список перетаскиваемый",
+            placeholder: "Строка 1\nСтрока 2\nСтрока 3"
+        },
+        quizphoto: {
+            name: "Фото",
+            placeholder: "Text\nURL\nText\nURL"
+        },
+        quiztable: {
+            name: "3 колонки",
+            placeholder: "Заголовок 1:\nслово1;слово2;слово3\nЗаголовок 2:\nслово1;слово2;слово3\nЗаголовок 3:\nслово1;слово2;слово3"
+        },
+        audio_tts: {
+            name: "Текст в речь",
+            placeholder: "Текст сверху\nТекст снизу\nТекст для озвучки\n0 (убрать шкалу времени) 1 (оставить)"
+        },
+        translate: {
+            name: "Квиз перевод",
+            placeholder: "Текст в одну строку"
+        },
+        translateNew: {
+            name: "Квиз перевод новый",
+            placeholder: "Текст на русском\nПравильный вариант перевода\nОстальные варианты перевода\n..."
+        },
+        stt: {
+            name: "Текст в речь",
+            placeholder: "Слово для проверки"
+        },
+        video: {
+            name: "Видео",
+            placeholder: "URL видео\nURL превью"
+        },
+        audioQuiz5: {
+            name: "Аудиопрактика (ТТС + Квиз 5)",
+            placeholder: "Текст сверху\nТекст снизу\nТекст для озвучки\n0 (убрать шкалу времени) 1 (оставить)\nПросто текст через пробел (правильный для проверки)\n1 - Показывать слова, 0 - Нет"
+        },
+        textAudio: {
+            name: "Текст с аудио",
+            placeholder: "Текст <<ссылка на аудио>>\nТекст <<ссылка на аудио>>\n"
+        },
+        dropdownQuiz: {
+            name: "Выпадающий список",
+            placeholder: "Текст <<правильный ответ;ответ;ответ>> текст\nТекст <<правильный ответ>> текст\n"
+        }
+    }
+
+    var galery_number = 0;
+    var global_i = 1;
+    var global_i_i = 1;
+    var result_all = "";
+
+    function showMain() {
+
+        const galeryID = parseInt(document.querySelector("#galeryID").value);
+        galery_number = galeryID;
+        if (!Number.isInteger(galeryID)) {
+            return alert('Ошибка, проверьте правильность введенных данных.')
+        } else {
+            document.querySelector(".galeryID").setAttribute('hidden', 'hidden');
+            document.querySelector(".mainContainer").removeAttribute('hidden');
+            document.querySelector(".quizOut").parentElement.parentElement.removeAttribute('hidden');
+            // var url = `/start/${galery_number}/${global_i}/${global_i_i}`;
+            // $.getJSON(url, function (result) {
+            //     galery_number = result.galery_number;
+            //     global_i = result.global_i;
+            //     global_i_i = result.global_i_i;
+            //     result_all = result_all + result.s;
+            //     document.querySelector(".quizOut").value = result_all;
+            // })
+            var url = `/start`;
+            document.body.classList.remove('loaded');
+            $.getJSON(url, {
+                galery_number: galery_number,
+                global_i: global_i,
+                global_i_i: global_i_i
+            })
+                .done(function (result) {
+                    galery_number = result.galery_number;
+                    global_i = result.global_i;
+                    global_i_i = result.global_i_i;
+                    result_all = result_all + result.s;
+                    document.querySelector(".quizOut").value = result_all;
+                    var quizInput = document.querySelector(".quizInput").value;
+                    var ul = document.querySelector(".quizList");
+                    var li = document.createElement("li");
+                    li.appendChild(document.createTextNode('1 слайд'));
+                    ul.appendChild(li);
+                })
+                .fail(function (result) {
+                    alert('Произошла ошибка')
+                })
+                .always(function (result) {
+                    document.body.classList.add('loaded');
+                });
+
+            return
+        }
+    }
+
+    function changeQuiz(quizName) {
+
+        document.querySelector(".currentQuiz").setAttribute('quiz', quizName);
+        document.querySelector(".currentQuiz").textContent = dict[quizName].name;
+        document.querySelector(".quizInput").value = dict[quizName].placeholder;
+        document.querySelector(".quizInput").scrollIntoView({
+            behavior: 'smooth',
+            block: "center"
+        });
+        return
+    }
+
+    function addQuiz() {
+        const quizName = document.querySelector(".currentQuiz").getAttribute('quiz');
+        var quizInput = document.querySelector(".quizInput").value;
+        var ul = document.querySelector(".quizList");
+        var li = document.createElement("li");
+        // quizInput = quizInput.replaceAll('\n', '|||');
+        var url = `/${quizName}`;
+        document.body.classList.remove('loaded');
+        $.getJSON(url, {
+            s: quizInput,
+            galery_number: galery_number,
+            global_i: global_i,
+            global_i_i: global_i_i
+        })
+            .done(function (result) {
+                galery_number = result.galery_number;
+                global_i = result.global_i;
+                global_i_i = result.global_i_i;
+                result_all = result_all + result.s;
+                document.querySelector(".quizOut").value = result_all;
+                li.appendChild(document.createTextNode(document.querySelector(".currentQuiz").textContent + `(${quizInput.split('\n').join(' ').slice(0, 50)}...)`));
+                ul.appendChild(li);
+            })
+            .fail(function (result) {
+                alert('Произошла ошибка')
+            })
+            .always(function (result) {
+                document.body.classList.add('loaded');
+            });
+    }
+    function nextSlide() {
+        // var url = `/nextslide/${galery_number}/${global_i}/${global_i_i}`;
+        // $.getJSON(url, function (result) {
+        //     galery_number = result.galery_number;
+        //     global_i = result.global_i;
+        //     global_i_i = result.global_i_i;
+        //     result_all = result_all + result.s;
+        //     document.querySelector(".quizOut").value = result_all;
+        // })
+        var url = `/nextslide`;
+        document.body.classList.remove('loaded');
+        $.getJSON(url, {
+            galery_number: galery_number,
+            global_i: global_i,
+            global_i_i: global_i_i
+        })
+            .done(function (result) {
+                galery_number = result.galery_number;
+                global_i = result.global_i;
+                global_i_i = result.global_i_i;
+                result_all = result_all + result.s;
+                document.querySelector(".quizOut").value = result_all;
+                var quizInput = document.querySelector(".quizInput").value;
+                var ul = document.querySelector(".quizList");
+                var li = document.createElement("li");
+                li.appendChild(document.createTextNode(`${global_i} Слайд`));
+                ul.appendChild(li);
+            })
+            .fail(function (result) {
+                alert('Произошла ошибка')
+            })
+            .always(function (result) {
+                document.body.classList.add('loaded');
+            });
+
+        // var quizInput = document.querySelector(".quizInput").value;
+        // var ul = document.querySelector(".quizList");
+        // var li = document.createElement("li");
+        // li.appendChild(document.createTextNode(`${global_i} Слайд`));
+        // ul.appendChild(li);
+
+    }
+    function end() {
+        var ifNextBtn = "0";
+        if (document.querySelector("#ifNextBtn").checked) {
+            ifNextBtn = "1";
+        }
+
+        // var url = `/end/${ifNextBtn}/${galery_number}/${global_i}/${global_i_i}`;
+        // $.getJSON(url, function (result) {
+        //     galery_number = result.galery_number;
+        //     global_i = result.global_i;
+        //     global_i_i = result.global_i_i;
+        //     result_all = result_all + result.s;
+        //     document.querySelector(".quizOut").value = result_all;
+        // })
+        var url = `/end`;
+        document.body.classList.remove('loaded');
+        $.getJSON(url, {
+            galery_number: galery_number,
+            global_i: global_i,
+            global_i_i: global_i_i,
+            ifNextBtn: ifNextBtn
+        })
+            .done(function (result) {
+                galery_number = result.galery_number;
+                global_i = result.global_i;
+                global_i_i = result.global_i_i;
+                result_all = result_all + result.s;
+                document.querySelector(".quizOut").value = result_all;
+                document.querySelector(".mainContainer").setAttribute('hidden', 'hidden');
+            })
+            .fail(function (result) {
+                alert('Произошла ошибка')
+            })
+            .always(function (result) {
+                document.body.classList.add('loaded');
+            });
+    }
+
+    function copy() {
+        var copyText = document.querySelector(".quizOut");
+        copyText.select();
+        document.execCommand("copy");
+    }
+</script>
